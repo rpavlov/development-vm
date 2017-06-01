@@ -1,0 +1,16 @@
+---
+- pip:
+    name: newspaper3k
+    executable: pip3
+  become: true
+
+- name: Clone the application repository
+  git: >
+    repo={{newspaper_repo_url}} dest={{newspaper_repo}}
+    version=master accept_hostkey=yes force=yes
+  become: true
+
+- name: set file ownership for cloned repo
+  file: >
+    path="{{newspaper_repo}}" state=directory recurse=yes owner={{factuly_user}} group={{factuly_user}}
+  become: true

@@ -71,7 +71,7 @@
 - name: config database.yml
   template: src=database.yml.j2 dest={{ factuly_repo }}/config/database.yml
 
-#move RAILS_ENV outta here
+#move RAILS_ENV and hardcoded production outta here. Pop em into .env probably
 - name: migrate database
   command: bundle exec rake db:migrate RAILS_ENV="production" chdir={{ factuly_repo }}
 
@@ -81,11 +81,20 @@
 - name: precompile assets
   command: bundle exec rake assets:precompile RAILS_ENV="production" chdir={{ factuly_repo }}
 
-- name: Create system service
+- name: Create system service for factuly app
   shell: >
-    PATH=$(pwd):$PATH bundle exec foreman export -a factuly -u {{factuly_user}} upstart /etc/init/
+    PATH=$(pwd):$PATH foreman export -a factuly-app -u {{factuly_user}} upstart /etc/init/
   args:
     chdir: "{{factuly_repo}}"
 
-- name: Restart service and enable at boot
-  service: name=factuly state=restarted enabled=yes
+- name: Create system service for newspaper app
+  shell: >
+    PATH=$(pwd):$PATH foreman export -a newspaper-app -u {{factuly_user}} upstart /etc/init/
+  args:
+    chdir: "{{newspaper_repo}}"
+
+- name: Restart services and enable at boot
+  service: name={{item}} state=restarted enabled=yes
+  with_items:
+    - factuly-app
+    - newspaper-app

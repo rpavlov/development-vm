@@ -28,12 +28,24 @@
   register: bundler_present
   ignore_errors: True
 
+- name: Check bundler is installed or not
+  shell: foreman -h
+  register: foreman_present
+  ignore_errors: True
+
 - name: Install bundler if not yet present
   shell: gem install bundler
   when: bundler_present|failed
 
+- name: Install foreman if not yet present
+  shell: gem install foreman
+  when: foreman_present|failed
+
 - name: copy nginx default config file
-  template: src=default.j2 dest=/etc/nginx/sites-available/default
+  template: src=factuly.j2 dest=/etc/nginx/sites-available/factuly
+
+- name: copy nginx default config file
+  template: src=newspaper.j2 dest=/etc/nginx/sites-available/newspaper
 
 - name: configure nginx for user
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf

@@ -5,6 +5,7 @@
   with_items:
     - newspaper3k
     - gunicorn
+    - flask
 
 - name: Clone the application repository
   become: true

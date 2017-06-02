@@ -1,16 +1,18 @@
 ---
-- pip:
-    name: newspaper3k
-    executable: pip3
+- name: Install project dependencies
   become: true
+  pip: name={{ item }} state=present executable=pip3
+  with_items:
+    - newspaper3k
+    - gunicorn
 
 - name: Clone the application repository
+  become: true
   git: >
     repo={{newspaper_repo_url}} dest={{newspaper_repo}}
     version=master accept_hostkey=yes force=yes
-  become: true
 
 - name: set file ownership for cloned repo
+  become: true
   file: >
     path="{{newspaper_repo}}" state=directory recurse=yes owner={{factuly_user}} group={{factuly_user}}
-  become: true

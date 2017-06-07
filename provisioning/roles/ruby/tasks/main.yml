@@ -42,10 +42,14 @@
   when: foreman_present|failed
 
 - name: copy nginx default config file
-  template: src=factuly.j2 dest=/etc/nginx/sites-available/factuly
+  template: src=default.j2 dest=/etc/nginx/sites-available/default
 
 - name: copy nginx default config file
   template: src=newspaper.j2 dest=/etc/nginx/sites-available/newspaper
 
 - name: configure nginx for user
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
+- name: install setfacl support
+  become: yes
+  apt: pkg=acl

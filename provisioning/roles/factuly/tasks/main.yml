@@ -40,6 +40,11 @@
     - "{{factuly_repo}}/shared/sockets"
     - "{{factuly_repo}}/shared/log"
 
+- name: Remove stale unicorn pids
+  file:
+    path: '{{ factuly_repo }}/shared/pids/unicorn.pid'
+    state: absent
+
 - name: set file ownership for cloned repo
   file: >
     path="{{factuly_repo}}" state=directory recurse=yes owner={{factuly_user}} group={{factuly_user}}
@@ -87,14 +92,5 @@
   args:
     chdir: "{{factuly_repo}}"
 
-- name: Create system service for newspaper app
-  shell: >
-    PATH=$(pwd):$PATH foreman export -a newspaper-app -u {{factuly_user}} upstart /etc/init/
-  args:
-    chdir: "{{newspaper_repo}}"
-
 - name: Restart services and enable at boot
-  service: name={{item}} state=restarted enabled=yes
-  with_items:
-    - factuly-app
-    - newspaper-app
+  service: name=factuly-app state=restarted enabled=yes

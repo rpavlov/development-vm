@@ -1,1 +1,5 @@
-<put DNS name or IP of your production server here>
+[local]
+localhost
+
+[launched]
+ec2-13-58-186-130.us-east-2.compute.amazonaws.com ansible_ssh_private_key_file=~/.ssh/fnsi-aws-keys.pem

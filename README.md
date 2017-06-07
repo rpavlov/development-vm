@@ -6,10 +6,14 @@ Configuration and deployment scripts for the Ruby on Rails and Flask application
 
 Based on https://github.com/rdsubhas/ruby-deploy-kickstart.
 
-- Requires an SSH private key (fnsi-aws-keys.pem) in order to connect to the instance.
-- Requires a vault_password.txt file to decrypt the .env file during provisioning/deployment. Not version controlled.
+- Requires an SSH private key (~/.ssh/fnsi-aws-keys.pem) in order to connect to the instance.
+- Requires a vault_password.txt file to decrypt the .env file during provisioning/deployment.
 
-### deployment
+### Auth
+
+Signup is via Google OAuth https://console.developers.google.com/apis/credentials?project=factuly-platform
+
+### Deployment
 
 AWS Production: ```ansible-playbook -i provisioning/prod_inventory provisioning/prod-aws.yml --vault-password-file .vault_password.txt```
 

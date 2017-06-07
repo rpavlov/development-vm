@@ -44,7 +44,7 @@
 - name: copy nginx default config file
   template: src=default.j2 dest=/etc/nginx/sites-available/default
 
-- name: copy nginx default config file
+- name: copy nginx config file for newspaper-app
   template: src=newspaper.j2 dest=/etc/nginx/sites-available/newspaper
 
 - name: configure nginx for user

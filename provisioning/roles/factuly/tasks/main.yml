@@ -40,9 +40,14 @@
     - "{{factuly_repo}}/shared/sockets"
     - "{{factuly_repo}}/shared/log"
 
-- name: Remove stale unicorn pids
+- name: Remove stale unicorn pid
   file:
     path: '{{ factuly_repo }}/shared/pids/unicorn.pid'
+    state: absent
+
+- name: Remove stale unicorn socket
+  file:
+    path: '{{ factuly_repo }}/shared/sockets/unicorn.sock'
     state: absent
 
 - name: set file ownership for cloned repo
@@ -54,9 +59,9 @@
   # Use git-crypt, ansible-vault or anything that you want
   # But don't commit secret files unencrypted, even in private repositories
 
-- name: Copy dotEnv for this server
+- name: Copy .env
   copy: >
-    src=.env dest={{factuly_repo}}/.env owner={{factuly_user}} group={{factuly_group}} mode=0600
+    src=.env dest={{factuly_repo}} owner={{factuly_user}} group={{factuly_group}} mode=0600
 
 - name: Symlink persistent folders
   file: state=link force=yes src={{item.src}} dest={{item.dest}}
@@ -91,6 +96,13 @@
     PATH=$(pwd):$PATH foreman export -a factuly-app -u {{factuly_user}} upstart /etc/init/
   args:
     chdir: "{{factuly_repo}}"
+
+- name: Create system service for unicorn
+  template: src=unicorn.j2 dest=/etc/init.d/unicorn mode=775
+
+- name: register unicorn service
+  become: true
+  shell: update-rc.d unicorn defaults
 
 - name: Restart services and enable at boot
   service: name=factuly-app state=restarted enabled=yes

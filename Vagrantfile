@@ -25,8 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     prod.vm.network :private_network, ip: "192.168.111.102"
     prod.vm.provision "ansible" do |ansible|
       ansible.playbook = 'provisioning/prod.yml'
-      ansible.verbose = 'vvv'
-      ansible.vault_password_file = ".vault_password.txt"
+      #ansible.verbose = 'vvv'
+      ansible.vault_password_file = "vault_password.txt"
     end
   end
 

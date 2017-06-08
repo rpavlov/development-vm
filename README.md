@@ -15,6 +15,6 @@ Signup is via Google OAuth https://console.developers.google.com/apis/credential
 
 ### Deployment
 
-AWS Production: ```ansible-playbook -i provisioning/prod_inventory provisioning/prod-aws.yml --vault-password-file .vault_password.txt```
+AWS Production: ```ansible-playbook -i provisioning/prod_inventory provisioning/prod-aws.yml --vault-password-file  vault_password.txt```
 
 Development vagrant: ```vagrant up prod``` and then ```vagrant provision prod``` for subsequent re-deploys.

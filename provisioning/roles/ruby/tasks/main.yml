@@ -3,7 +3,7 @@
   apt_repository: repo='ppa:brightbox/ruby-ng'
 
 - name: Install Packages
-  apt: name={{ item }} state=present update_case=true
+  apt: name={{ item }} state=present update_cache=true
   with_items:
     - build-essential
     - git

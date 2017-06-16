@@ -18,3 +18,7 @@ Signup is via Google OAuth https://console.developers.google.com/apis/credential
 AWS Production: ```ansible-playbook -i provisioning/prod_inventory provisioning/prod-aws.yml --vault-password-file  vault_password.txt```
 
 Development vagrant: ```vagrant up prod``` and then ```vagrant provision prod``` for subsequent re-deploys.
+
+### Misc
+
+Old brochure sites lives at 23.236.62.147

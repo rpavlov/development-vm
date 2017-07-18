@@ -2,4 +2,4 @@
 localhost
 
 [launched]
-ec2-13-58-186-130.us-east-2.compute.amazonaws.com ansible_ssh_private_key_file=~/.ssh/fnsi-aws-keys.pem
+52.15.140.11 ansible_ssh_private_key_file=~/.ssh/fnsi-aws-keys.pem

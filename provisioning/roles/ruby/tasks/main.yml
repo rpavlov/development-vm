@@ -1,6 +1,9 @@
 ---
-- name: Add Ruby repository
-  apt_repository: repo='ppa:brightbox/ruby-ng'
+- name: Add Ruby, Certbot repository
+  with_items:
+    - ppa:certbot/certbot
+    - ppa:brightbox/ruby-ng
+  apt_repository: repo={{ item }}
 
 - name: Install Packages
   apt: name={{ item }} state=present update_cache=true
@@ -19,6 +22,7 @@
     - ruby2.2-dev
     - ruby-switch
     - nginx
+    - python-certbot-nginx 
 
 - name: Dont install gem docs, they will slow down gem install
   lineinfile: "dest=/etc/gemrc line='gem: --no-ri --no-rdoc' create=yes"

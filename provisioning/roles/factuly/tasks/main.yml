@@ -1,4 +1,5 @@
 ---
+# Groups and users
 - name: Create group
   group: >
     name={{factuly_group}} gid={{factuly_gid}} state=present
@@ -18,10 +19,7 @@
     validate='visudo -cf %s'
   become: true
 
-###
 ### Running stuff as {{factuly_user}} whenever permissions need to be preserved
-###
-
 - name: Clone application repository
   git: >
     repo={{factuly_repo_url}} dest={{factuly_repo}}
@@ -55,10 +53,9 @@
     path="{{factuly_repo}}" state=directory recurse=yes owner={{factuly_user}} group={{factuly_user}}
   become: true
 
-  # For private apps, copy the key file and specify "key_file" in the git task
-  # Use git-crypt, ansible-vault or anything that you want
-  # But don't commit secret files unencrypted, even in private repositories
-
+# For private apps, copy the key file and specify "key_file" in the git task
+# Use git-crypt, ansible-vault or anything that you want
+# But don't commit secret files unencrypted, even in private repositories
 - name: Copy .env
   copy: >
     src=.env dest={{factuly_repo}} owner={{factuly_user}} group={{factuly_group}} mode=0600
@@ -91,6 +88,7 @@
 - name: precompile assets
   command: bundle exec rake assets:precompile RAILS_ENV="production" chdir={{ factuly_repo }}
 
+### Services
 - name: Create system service for factuly app
   shell: >
     PATH=$(pwd):$PATH foreman export -a factuly-app -u {{factuly_user}} upstart /etc/init/

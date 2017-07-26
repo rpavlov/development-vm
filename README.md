@@ -2,10 +2,14 @@
 
 Configuration and deployment scripts for the Ruby on Rails and Flask applications.
 
+## Prerequisites
+
+You will need ansible some-version setup locally.
+
 ## Building from scratch
 
 - Generate an SSL cert with certbot.
-      certbox --nginx
+      certbot --nginx
 
 ## Configuration
 

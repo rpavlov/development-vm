@@ -6,3 +6,4 @@ factuly_user: factuly
 factuly_home: /home/factuly
 factuly_repo: /home/factuly/repo
 factuly_repo_url: git@github.com:fnsi/fnsi.git
+factuly_domain: factu.ly

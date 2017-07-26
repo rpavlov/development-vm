@@ -1,4 +1,5 @@
 ---
+### Packages
 - name: Add Ruby, Certbot repository
   with_items:
     - ppa:certbot/certbot
@@ -22,11 +23,12 @@
     - ruby2.2-dev
     - ruby-switch
     - nginx
-    - python-certbot-nginx 
+    - python-certbot-nginx
 
 - name: Dont install gem docs, they will slow down gem install
   lineinfile: "dest=/etc/gemrc line='gem: --no-ri --no-rdoc' create=yes"
 
+# Bundler
 - name: Check bundler is installed or not
   shell: bundle -v
   register: bundler_present
@@ -45,15 +47,25 @@
   shell: gem install foreman
   when: foreman_present|failed
 
-- name: copy nginx default config file
+# Nginx
+- name: copy nginx site file for default/factu.ly
   template: src=default.j2 dest=/etc/nginx/sites-available/default
 
-- name: copy nginx config file for newspaper-app
+- name: copy nginx site file for newspaper-app
   template: src=newspaper.j2 dest=/etc/nginx/sites-available/newspaper
 
-- name: configure nginx for user
+- name: Copy nginx configuration
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
 
 - name: install setfacl support
   become: yes
   apt: pkg=acl
+
+- name: Create dir for ssl certs
+  file: path=/etc/nginx/ssl state=directory
+
+- name: Copy ssl certificates
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'fullchain.pem', dest: '/etc/nginx/ssl' }
+    - { src: 'privkey.pem', dest: '/etc/nginx/ssl' }

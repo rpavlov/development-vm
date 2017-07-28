@@ -22,7 +22,3 @@ command. Based on https://github.com/rdsubhas/ruby-deploy-kickstart.
 Signup is via Google OAuth https://console.developers.google.com/apis/credentials?project=factuly-platform
 
 If provisioning a new server or domain name, you'll have to authorize ownership of https://factu.ly through their console.
-
-### Misc
-
-Old brochure sites lives at 23.236.62.147

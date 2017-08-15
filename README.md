@@ -21,4 +21,5 @@ command. Based on https://github.com/rdsubhas/ruby-deploy-kickstart.
 
 Signup is via Google OAuth https://console.developers.google.com/apis/credentials?project=factuly-platform
 
-If provisioning a new server or domain name, you'll have to authorize ownership of https://factu.ly through their console.
+* If provisioning a new server or domain name, you'll have to authorize ownership of https://factu.ly through their console.
+* Again in the console, ensure you have set Authorized Redirect URI to `https://factu.ly/auth/google_oauth2/callback`

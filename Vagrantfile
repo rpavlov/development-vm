@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Development VM
   config.vm.define "dev", primary: true do |dev|
+    dev.vm.network :private_network, ip: "192.168.111.101"
     dev.vm.provision "ansible" do |ansible|
       ansible.playbook = 'provisioning/dev.yml'
       ansible.verbose = 'vvv'
@@ -31,8 +32,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
-
   end
+
+  config.vm.synced_folder "~/Projects/rpavlov.com", "/rpavlov.com", nfs: true,
+                            nfs_export: true, nfs_udp: true, nfs_version: 3,
+                            :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
+
   # Use vagrant-cachier to cache apt-get, gems and other stuff across machines
   # Also consider using vagrant-exec, vagrant-faster and vagrant-omnibus
   if Vagrant.has_plugin?('vagrant-cachier')

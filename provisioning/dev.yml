@@ -4,4 +4,4 @@
   roles:
     - ruby
     - python
-    - postgresql
+#  - postgresql

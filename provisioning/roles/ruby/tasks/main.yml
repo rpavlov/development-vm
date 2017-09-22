@@ -21,7 +21,6 @@
     - ruby2.2
     - ruby2.2-dev
     - ruby-switch
-    - nginx
 
 - name: Dont install gem docs, they will slow down gem install
   lineinfile: "dest=/etc/gemrc line='gem: --no-ri --no-rdoc' create=yes"

@@ -1,5 +1,6 @@
 ---
 - name: Install python packages
+  become: true
   apt: name={{ item }} state=present
   with_items:
     - python-dev
@@ -8,4 +9,3 @@
     - zlib1g-dev
     - libpng12-dev
     - gunicorn
-  become: true

@@ -1,5 +1,0 @@
-[local]
-localhost
-
-[launched]
-52.15.140.11 ansible_ssh_private_key_file=~/.ssh/fnsi-aws-keys.pem

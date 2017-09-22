@@ -9,10 +9,10 @@ $enable_serial_logging = false
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = true
   config.ssh.forward_agent = true
+  config.vm.box = 'ubuntu/trusty64'
 
   # Development VM
   config.vm.define "dev", primary: true do |dev|
-    dev.vm.box = "ubuntu/trusty64"
     dev.vm.provision "ansible" do |ansible|
       ansible.playbook = 'provisioning/dev.yml'
       ansible.verbose = 'vvv'
@@ -21,7 +21,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Production VM
   config.vm.define "prod", autostart: false do |prod|
-    prod.vm.box = "ubuntu/trusty64"
     prod.vm.network :private_network, ip: "192.168.111.102"
     prod.vm.provision "ansible" do |ansible|
       ansible.playbook = 'provisioning/prod.yml'

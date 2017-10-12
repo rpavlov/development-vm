@@ -37,6 +37,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "~/Projects/rpavlov.com", "/rpavlov.com", nfs: true,
                             nfs_export: true, nfs_udp: true, nfs_version: 3,
                             :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
+  config.vm.synced_folder "~/Projects/whythis.life", "/whythis.life", nfs: true,
+                            nfs_export: true, nfs_udp: true, nfs_version: 3,
+                            :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
 
   # Use vagrant-cachier to cache apt-get, gems and other stuff across machines
   # Also consider using vagrant-exec, vagrant-faster and vagrant-omnibus

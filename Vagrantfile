@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Production VM
   config.vm.define "prod", autostart: false do |prod|
-    prod.vm.network :private_network, ip: "192.168.111.102"
+    prod.vm.network :private_network, ip: "192.168.111.101"
     prod.vm.provision "ansible" do |ansible|
       ansible.playbook = 'provisioning/prod.yml'
       #ansible.verbose = 'vvv'
